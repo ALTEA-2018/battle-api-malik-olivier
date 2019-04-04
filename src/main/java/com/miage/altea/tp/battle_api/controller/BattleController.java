@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -15,7 +16,7 @@ import java.util.UUID;
 public class BattleController {
     private BattleService battleService;
 
-    private HashMap<UUID,Battle> battles = new HashMap();
+    private Map<UUID,Battle> battles = new HashMap();
 
     @PostMapping
     public Battle createBattle(@RequestParam("trainer") String attackerName, @RequestParam("opponent") String opponentName) {
@@ -24,8 +25,11 @@ public class BattleController {
         return  battle;
     }
 
-//    @GetMapping
-//    public Battle getBattle(@PathParam())
+    @GetMapping("/{uuidBattle}")
+    public Battle getBattle(@PathVariable("uuidBattle") UUID uuidBattle) throws Exception {
+        if(!battles.containsKey(uuidBattle)) throw new Exception("Battle don't exists");
+        return  battles.get(uuidBattle);
+    }
 
     @Autowired
     public void setBattleService(BattleService battleService) {
