@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 public class StatsCalculatorImpl implements StatsCalculator {
     @Override
     public int calculateHp(int base, int level) {
-        return 10 + level + (base* Math.round(level/50));
+        return 10 + level + (Math.round(base* level/50));
     }
 
     @Override

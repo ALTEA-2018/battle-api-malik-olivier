@@ -5,4 +5,5 @@ import com.miage.altea.tp.battle_api.bo.trainer.Trainer;
 
 public interface BattleService {
     Battle createBattle(String attackerName, String opponentName);
+    Battle attack(String attackerName, Battle battle) throws Exception;
 }

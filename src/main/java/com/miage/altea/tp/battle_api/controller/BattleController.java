@@ -3,6 +3,8 @@ package com.miage.altea.tp.battle_api.controller;
 import com.miage.altea.tp.battle_api.bo.battle.Battle;
 import com.miage.altea.tp.battle_api.service.battle.BattleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +31,18 @@ public class BattleController {
     public Battle getBattle(@PathVariable("uuidBattle") UUID uuidBattle) throws Exception {
         if(!battles.containsKey(uuidBattle)) throw new Exception("Battle don't exists");
         return  battles.get(uuidBattle);
+    }
+
+    @PostMapping("/{uuidBattle}/{attacker}/attack")
+    public ResponseEntity<?> attack(@PathVariable("uuidBattle") UUID uuidBattle,@PathVariable("attacker") String attacker) {
+        if(!battles.containsKey(uuidBattle)) return new ResponseEntity<>("Battle don't exists",HttpStatus.BAD_REQUEST);
+        try {
+            var battle = battleService.attack(attacker,battles.get(uuidBattle));
+            battles.replace(uuidBattle,battle);
+            return new ResponseEntity<>(battle,HttpStatus.ACCEPTED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @Autowired
