@@ -4,6 +4,7 @@ import com.miage.altea.tp.battle_api.bo.pokemon_type.PokemonType;
 
 public class BattlePokemon {
 
+    private int id;
     private int hp;
     private int maxHp;
     private PokemonType type;
@@ -89,5 +90,13 @@ public class BattlePokemon {
 
     public void setAlive(boolean alive) {
         this.alive = alive;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 }

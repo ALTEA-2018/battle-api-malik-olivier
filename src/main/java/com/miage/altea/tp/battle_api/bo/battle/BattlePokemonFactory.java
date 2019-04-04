@@ -23,6 +23,7 @@ public class BattlePokemonFactory {
         battlePokemon.setSpeed(speed);
         battlePokemon.setAlive(true);
         battlePokemon.setKo(false);
+        battlePokemon.setId(pokemonType.getId());
         return battlePokemon;
     }
 
